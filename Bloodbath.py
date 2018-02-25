@@ -631,6 +631,41 @@ def assassinRetreat1 ():
   return assassinBattle2 ()
   
 ############################################################
+#################### ASSASSIN BATTLE 2 #####################
+############################################################
+
+def asLoop2 ():
+  count = 1
+  for count in range(7):
+    print ("--------------------\n--------------------\nYour turn!")
+    print ("What do you want to do?\n- Attack\n- Block\n- Retreat")
+    asMoveChoice2 ()
+    if enemyHealth <= 0:
+      return asBattle2Win ()
+    asEnemyAttack2 ()
+    if heroHealth <= 0:
+      return asBattle2Lose ()
+    count += 1
+    if count == 6:
+      return asBattle2Tired ()
+    else:
+      continue  
+      
+def asMoveChoice2 ():
+  moveChoiceInp = input ("> ")
+  if moveChoiceInp == "Attack":
+    return asAttackChoice2 ()
+  elif moveChoiceInp == "Block":
+    return asBlock2 ()
+  elif moveChoiceInp == "Retreat":
+    return asRetreat2 ()
+  else:
+    print ("You can Attack, Block and Retreat. Choose one of these options.")
+    return asMoveChoice2 ()  
+
+def asAttackChoice2 ():
+  
+############################################################
 ########################## EXTRAS ##########################
 ############################################################
 
