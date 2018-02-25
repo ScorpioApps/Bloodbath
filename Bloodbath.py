@@ -1,11 +1,5 @@
 import sys, random
 
-"""
-BLOODBATH CHANGELOG 
-V 1.0:
-Basic game made, includes 3 battles for each character.
-"""
-
 ############################################################
 ################## WELCOME + CLASS CHOICES #################
 ############################################################
@@ -43,14 +37,14 @@ def mageInfo ():
 def assassinInfo ():
   print ("The Assassin has trained for years, gaining incredible dexterity and strength. He relies on his array of weapons to use as his four powers:") ## Info for the Assassin class
   print ("1. Knife Plunge - 8 DMG, 70% ACC\n2. Bullets - 12 DMG, 60% ACC\n3. Hand-to-hand - 9 DMG 75% ACC\n4. Precise Snipe - 15 DMG, 80% ACC") ## Assassin's powers
-  print ("Stats:\nHealth: 18\nStrength: 12\nDexterity: 17") ## Assassin's stats
+  print ("Stats:\nHealth: 30\nStrength: 12\nDexterity: 17") ## Assassin's stats
   print ("Would you like to be this character?")
   charChoiceAssassin ()
 
 def warlordInfo ():
   print ("The Warlord is a mighty warrior, with ample strength. His fists and trusty hammer are the only weapons he needs for his four powers:") ## Info for the Warlord class
   print ("1. Hammer Smash - 13 PWR\n2. Rapid Punches - 10 PWR\n3. Big Kick - 7 PWR\n4. Headbutt - 5 PWR") ## Warlord's powers
-  print ("Stats'\nHealth: 25\nStrength: 18\nDexterity: 7") ## Warlord's stats
+  print ("Stats'\nHealth: 50\nStrength: 18\nDexterity: 7") ## Warlord's stats
   print ("Would you like to be this character?")
   charChoiceWarlord ()
   
@@ -108,7 +102,7 @@ def mageGame ():
   
 def mageLoop1 ():
   count = 1
-  for count in range(6):
+  for count in range(7):
     print ("--------------------\n--------------------\nYour turn!")
     print ("What do you want to do?\n- Attack\n- Block\n- Retreat")
     mageMoveChoice1 ()
@@ -250,18 +244,18 @@ def mageBattle2 ():
   
 def mageLoop2 ():
   count = 1
-  for count in range(6):
+  for count in range(7):
     print ("--------------------\n--------------------\nYour turn!")
     print ("What do you want to do?\n- Attack\n- Block\n- Retreat")
     mageMoveChoice2 ()
     if enemyHealth <= 0:
-      mageBattle2Win ()
+      return mageBattle2Win ()
     mageEnemyAttack2 ()
     if heroHealth <= 0:
-      mageBattle2Lose ()
+      return mageBattle2Lose ()
     count += 1
     if count == 6:
-      mageBattle2Tired ()
+      return mageBattle2Tired ()
     else:
       continue
       
@@ -380,18 +374,18 @@ def mageBattle3 ():
   
 def mageLoop3 ():
   count = 1
-  for count in range(9):
+  for count in range(10):
     print ("--------------------\n--------------------\nYour turn!")
     print ("What do you want to do?\n- Attack\n- Block\n- Retreat")
     mageMoveChoice3 ()
     if enemyHealth <= 0:
-      mageBattle3Win ()
+      return mageBattle3Win ()
     mageEnemyAttack3 ()
     if heroHealth <= 0:
-      mageBattle3Lose ()
+      return mageBattle3Lose ()
     count += 1
     if count == 9:
-      mageBattle3Tired ()
+      return mageBattle3Tired ()
     else:
       continue
 
@@ -504,12 +498,12 @@ def mageRetreat3 ():
 def assassinGame ():
   print ("You are an Assassin!")
   print ("Get ready for your first battle! I'll walk you through it.")
-  print ("Your first enemy is a Skeleton. An easy first enemy.")
+  print ("Your first enemy is a Spy. An easy first enemy.")
   print ("In a battle, you have three options:\n1. Attack\n2. Block\n3. Retreat")
   print ("1When you attack, you can use the four moves mentioned earlier.\nBlocking will block the next attack the enemy makes, but you only have a limited number of moves to defeat the enemy, so don't overuse it.\nOnly retreat when necessary. You won't die, but you won't win the battle either.")
   print ("Now it's time for your first move!")  
   global heroHealth, enemyHealth
-  heroHealth, enemyHealth = 18, 10
+  heroHealth, enemyHealth = 30, 25
   return assassinLoop1 ()
   
 ############################################################
@@ -518,12 +512,13 @@ def assassinGame ():
 
 def assassinLoop1 ():
   count = 1
-  for count in range(6):
+  for count in range(7):
     print ("--------------------\n--------------------\nYour turn!")
     print ("What do you want to do?\n- Attack\n- Block\n- Retreat")
     assassinMoveChoice1 ()
     if enemyHealth <= 0:
       return assassinBattle1Win ()
+    assassinEnemyAttack1 ()
     if heroHealth <= 0:
       return assassinBattle1Lose ()
     count += 1
@@ -562,6 +557,78 @@ def assassinAttackChoice1 ():
   else:
     print ("That's an invalid choice. All inputs are case-sensitive. Please try again.")
     return assassinAttackChoice1 ()
+    
+def assassinKnife1 ():
+  global enemyHealth
+  attackHit = random.randint (1,10)
+  if attackHit <= 7:
+    print ("Spy has",enemyHealth,"Health!\nAssassin uses Knife Plunge!\nSpy takes 8 DMG!\nSpy has",enemyHealth - 8,"Health!")
+    enemyHealth -= 8
+  else:
+    print ("Spy has",enemyHealth,"Health!\nAssassin uses Knife Plunge!\nKnife Plunge misses!\nSpy still has",enemyHealth,"Health!")
+
+def assassinBullets1 ():
+  global enemyHealth
+  attackHit = random.randint (1,10)
+  if attackHit <= 6:
+    print ("Spy has",enemyHealth,"Health!\nAssassin uses Bullets!\nSpy takes 12 DMG!\nSpy has",enemyHealth - 12,"Health!")
+    enemyHealth -= 12
+  else:
+    print ("Spy has",enemyHealth,"Health!\nAssassin uses Bullets!\nBullets misses!\nSpy still has",enemyHealth,"Health!")    
+
+def assassinFight1 ():
+  global enemyHealth
+  attackHit = random.randint (1,4)
+  if attackHit <= 3:
+    print ("Spy has",enemyHealth,"Health!\nAssassin uses Hand-to-hand!\nSpy takes 9 DMG!\nSpy has",enemyHealth - 9,"Health!")
+    enemyHealth -= 9
+  else:
+    print ("Spy has",enemyHealth,"Health!\nAssassin uses Hand-to-hand!\nHand-to-hand misses!\nSpy still has",enemyHealth,"Health!") 
+
+def assassinSnipe1 ():
+  global enemyHealth
+  attackHit = random.randint (1,10)
+  if attackHit <= 8:
+    print ("Spy has",enemyHealth,"Health!\nAssassin uses Precise Snipe!\nSpy takes 15 DMG!\nSpy has",enemyHealth - 15,"Health!")
+    enemyHealth -= 15
+  else:
+    print ("Spy has",enemyHealth,"Health!\nAssassin uses Precise Snipe!\nPrecise Snipe misses!\nSpy still has",enemyHealth,"Health!")
+    
+def assassinEnemyAttack1 ()
+  global heroHealth
+  attackHit = random.randint (1,25)
+  print ("--------------------\n--------------------\nEnemy's turn!")
+  if attackHit <= 5:
+    print ("Assassin has",heroHealth,"Health!\nSpy uses Dagger Throw!\nDagger Throw misses!\nMage still has",heroHealth,"Health!")
+  elif attackHit > 5 <= 18:
+    print ("Assassin has",heroHealth,"Health!\nAssassin gets Ambushed!\nAmbush deals 6 DMG!\nAssassin has",heroHealth - 6,"Health!")
+    heroHealth -= 6
+  elif attackHit > 18 <= 25:
+    print ("Assassin has",heroHealth,"Health!\nAssassin gets shot by Pistol!\nPistol deals 8 DMG!\nAssassin has",enemyHealth - 8"Health!")
+    heroHealth -= 8
+  else:
+    print ("error in code :/")
+    
+def assassinBlock1 ():
+  print ("Assassin uses Block! Assassin blocks Enemy's next attack!")
+  print ("It's Assassin's turn again!")
+  return assassinMoveChoice1 ()
+
+def assassinBattle1Win ():
+  print ("Well done, Assassin! You won your first Battle! Get ready, you're about to start Battle 2!")
+  return assassinBattle2 ()  
+  
+def assassinBattle1Lose ():
+  print ("Oh no, Assassin! You lost! Don't worry, you'll win the next Battle!")
+  return assassinBattle2 ()
+  
+def assassinBattle1Tired ():
+  print ("Assassin got tired of fighting! Assassin lost!\nDon't worry you'll win the next Battle. Just remember to try and defeat the Enemy in 5 moves.")
+  return assassinBattle2 ()
+
+def assassinRetreat1 ():
+  print ("Assassin retreated from Battle 1 like a chicken! Maybe they'll win Battle 2!")
+  return assassinBattle2 ()
   
 ############################################################
 ########################## EXTRAS ##########################
